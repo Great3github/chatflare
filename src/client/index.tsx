@@ -29,10 +29,10 @@ export default function Login({ onLogin }: LoginProps) {
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
-      <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input placeholder="Display Name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+      <input placeholder="Username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input placeholder="Display Name" type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
       <button type="submit">Login</button>
     </form>
   );
