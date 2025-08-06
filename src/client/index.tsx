@@ -11,8 +11,51 @@ import {
 import { nanoid } from "nanoid";
 
 import { names, type ChatMessage, type Message } from "../shared";
+interface LoginProps {
+  onLogin: (user: { email: string; username: string; displayName: string }) => void;
+}
 
-function App() {
+export default function Login({ onLogin }: LoginProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [displayName, setDisplayName] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // For now, we just pass the data back up
+    onLogin({ email, username, displayName });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="login-form">
+      <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input placeholder="Display Name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+      <button type="submit">Login</button>
+    </form>
+  );
+}
+function RootApp() {
+  const [user, setUser] = useState<{ email: string; username: string; displayName: string } | null>(null);
+
+  if (!user) {
+    return <Login onLogin={setUser} />;
+  }
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to={`/${nanoid()}`} />} />
+        <Route path="/:room" element={<App user={user} />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function App({ user }: { user: { email: string; username: string; displayName: string } }) {
   const [name] = useState(names[Math.floor(Math.random() * names.length)]);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
@@ -88,7 +131,7 @@ function App() {
           const chatMessage: ChatMessage = {
             id: nanoid(8),
             content: content.value,
-            user: name,
+            user: user.displayName,
             role: "user",
           };
           setMessages((messages) => [...messages, chatMessage]);
@@ -108,7 +151,7 @@ function App() {
           type="text"
           name="content"
           className="ten columns my-input-text"
-          placeholder={`Hello ${name}! Type a message...`}
+          placeholder={`Hello ${user.displayName}! Type a message...`}
           autoComplete="off"
         />
         <button type="submit" className="send-message two columns">
@@ -120,12 +163,4 @@ function App() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Navigate to={`/${nanoid()}`} />} />
-      <Route path="/:room" element={<App />} />
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  </BrowserRouter>,
-);
+createRoot(document.getElementById("root")!).render(<RootApp />);
