@@ -62,7 +62,7 @@ function App({ user }: { user: { email: string; username: string; displayName: s
     room,
     onMessage: (evt) => {
       const message = JSON.parse(evt.data as string) as Message;
-      if (user.displayName === "") {alert("Blank display names are not allowed!")}
+      if (user.displayName === "") {window.close()}
       if (message.type === "add") {
         if (user.displayName === "") {return}
         const foundIndex = messages.findIndex((m) => m.id === message.id);
