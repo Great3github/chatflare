@@ -64,7 +64,7 @@ function App({ user }: { user: { email: string; username: string; displayName: s
       const message = JSON.parse(evt.data as string) as Message;
       if (user.displayName === "") {
         alert("Blank display names are not allowed!")
-        window.close()
+        location.reload()
       }
       if (message.type === "add") {
         
