@@ -12,32 +12,32 @@ import { nanoid } from "nanoid";
 
 import { names, type ChatMessage, type Message } from "../shared";
 interface LoginProps {
-  onLogin: (user: { email: string; username: string; displayName: string }) => void;
+  onLogin: (user: { email: string; roomname: string; displayName: string }) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [roomname, setroomname] = useState("");
   const [displayName, setDisplayName] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // For now, we just pass the data back up
-    onLogin({ email, username, displayName });
+    onLogin({ email, roomname, displayName });
   };
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
       
-      <input placeholder="Username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input placeholder="Room name to join" type="text" value={roomname} onChange={(e) => setroomname(e.target.value)} />
       <input placeholder="Display Name" type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
       <button type="submit">Enter</button>
     </form>
   );
 }
 function RootApp() {
-  const [user, setUser] = useState<{ email: string; username: string; displayName: string } | null>(null);
+  const [user, setUser] = useState<{ email: string; roomname: string; displayName: string } | null>(null);
 
   if (!user) {
     return <Login onLogin={setUser} />;
@@ -46,7 +46,7 @@ function RootApp() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to={`/${nanoid()}`} />} />
+        <Route path="/" element={<Navigate to={`/${user.roomname}`} />} />
         <Route path="/:room" element={<App user={user} />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
@@ -54,7 +54,7 @@ function RootApp() {
   );
 }
 
-function App({ user }: { user: { email: string; username: string; displayName: string } }) {
+function App({ user }: { user: { email: string; roomname: string; displayName: string } }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
   const socket = usePartySocket({
