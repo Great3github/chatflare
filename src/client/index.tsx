@@ -22,6 +22,10 @@ export default function Login({ onLogin }: LoginProps) {
   const [roomname, setroomname] = useState("");
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
+  if (localStorage.getItem("displayName") !== null) {
+    setDisplayName(localStorage.getItem("displayName"));
+  }
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,6 +84,7 @@ function RootApp() {
 function App({ user }: { user: { email: string; roomname: string; displayName: string } }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
+  localStorage.setItem("displayName", user.displayName);
   const socket = usePartySocket({
     party: "chat",
     room,
