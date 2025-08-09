@@ -22,9 +22,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [roomname, setroomname] = useState("");
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
-  if (localStorage.getItem("displayName") !== null) {
-    setDisplayName(localStorage.getItem("displayName"));
-  }
+  
   
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -44,7 +42,7 @@ export default function Login({ onLogin }: LoginProps) {
       <input
         placeholder="Display Name"
         type="text"
-        value={displayName}
+        value={localStorage.getItem("displayName")}
         onChange={(e) => setDisplayName(e.target.value)}
       />
       <button type="submit">Enter</button>
