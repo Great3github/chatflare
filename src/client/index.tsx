@@ -22,7 +22,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [roomname, setroomname] = useState("");
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
-  
+  const params = useParams();
   
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -36,7 +36,7 @@ export default function Login({ onLogin }: LoginProps) {
       <input
         placeholder="Room name to join"
         type="text"
-        value={roomname}
+        value={params.room}
         onChange={(e) => setroomname(e.target.value)}
       />
       <input
@@ -69,7 +69,7 @@ function RootApp() {
           user ? (
             <App user={user} />
           ) : (
-            <Navigate to="/?:room" />
+            <Navigate to="/" />
           )
         }
       />
