@@ -15,14 +15,14 @@ import { names, type ChatMessage, type Message } from "../shared";
 interface LoginProps {
   onLogin: (user: { email: string; roomname: string; displayName: string }) => void;
 }
-
+const params = useParams();
 
 export default function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState("");
   const [roomname, setroomname] = useState("");
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
-  const params = useParams();
+  
   
 
   const handleSubmit = (e: React.FormEvent) => {
