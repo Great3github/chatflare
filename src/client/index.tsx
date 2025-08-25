@@ -69,7 +69,7 @@ function RootApp() {
           user ? (
             <App user={user} />
           ) : (
-            <Navigate to="/" />
+            <Navigate to="/?:room" />
           )
         }
       />
