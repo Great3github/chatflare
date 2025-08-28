@@ -43,7 +43,7 @@ export default function Login({ onLogin }: LoginProps) {
       <input
         placeholder="Display Name"
         type="text"
-        value={localStorage.getItem("displayName")}
+        value={localStorage.getItem("displayName") + " Test"}
         onChange={(e) => setDisplayName(e.target.value)}
       />
       <button type="submit">Enter</button>
