@@ -48,7 +48,7 @@ export default function Login({ onLogin }: LoginProps) {
       <input
         placeholder="Display Name"
         type="text"
-        value={presetdisplayname}
+        value={"presetdisplayname"}
         onChange={(e) => setDisplayName(e.target.value)}
       />
       <button type="submit">Enter</button>
