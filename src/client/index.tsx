@@ -28,7 +28,7 @@ export default function Login({ onLogin }: LoginProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onLogin({ email, roomname, displayName });
-    //navigate(`/${roomname}`); // Go to room URL dynamically
+    navigate(`/${roomname}`); // Go to room URL dynamically
   };
 
   return (
@@ -49,9 +49,7 @@ export default function Login({ onLogin }: LoginProps) {
     </form>
   );
 }
-function doNothingFunction() {
-        // This function does nothing
-}
+
 function RootApp() {
   const [user, setUser] = useState<{
     email: string;
@@ -71,8 +69,7 @@ function RootApp() {
           user ? (
             <App user={user} />
           ) : (
-            //<Navigate to="/" />
-            doNothingFunction()
+            <Navigate to="/" />
           )
         }
       />
