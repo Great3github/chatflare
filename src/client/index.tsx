@@ -71,13 +71,7 @@ function RootApp() {
       />
       <Route
         path="/:room"
-        element={
-          user ? (
-            <App user={user} />
-          ) : (
-            <Navigate to="/" />
-          )
-        }
+        element={user ? <App user={user} />}
       />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
@@ -88,7 +82,7 @@ function RootApp() {
 function App({ user }: { user: { email: string; roomname: string; displayName: string } }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
-  document.getElementById("roomname").innerHTML = ""
+  document.getElementById("roomname").innerHTML = `You are in chatroom '${user.roomname}'`
   //localStorage.setItem("displayName", user.displayName);
   const socket = usePartySocket({
     party: "chat",
