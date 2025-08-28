@@ -48,7 +48,7 @@ export default function Login({ onLogin }: LoginProps) {
       <input
         placeholder="Display Name"
         type="text"
-        value={"presetdisplayname"}
+        value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
       />
       <button type="submit">Enter</button>
@@ -88,7 +88,7 @@ function RootApp() {
 function App({ user }: { user: { email: string; roomname: string; displayName: string } }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
-  document.getElementById("roomname").innerHTML = ""
+  //document.getElementById("roomname").innerHTML = ""
   //localStorage.setItem("displayName", user.displayName);
   const socket = usePartySocket({
     party: "chat",
