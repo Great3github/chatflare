@@ -27,7 +27,7 @@ export default function Login({ onLogin }: LoginProps) {
   if (localStorage.getItem("displayName") == null) {
     presetdisplayname = "";
   } else {
-    presetdisplayname = localStorage.getItem("displayName");
+    //presetdisplayname = localStorage.getItem("displayName");
   }
   
 
@@ -89,7 +89,7 @@ function App({ user }: { user: { email: string; roomname: string; displayName: s
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
   document.getElementById("roomname").innerHTML = ""
-  localStorage.setItem("displayName", user.displayName);
+  //localStorage.setItem("displayName", user.displayName);
   const socket = usePartySocket({
     party: "chat",
     room,
