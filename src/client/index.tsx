@@ -23,7 +23,12 @@ export default function Login({ onLogin }: LoginProps) {
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
   const params = window.location.pathname;
-  
+  let presetdisplayname = "";
+  if (localStorage.getItem("displayName") == null) {
+    presetdisplayname = "";
+  } else {
+    presetdisplayname = localStorage.getItem("displayName");
+  }
   
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,7 +48,7 @@ export default function Login({ onLogin }: LoginProps) {
       <input
         placeholder="Display Name"
         type="text"
-        value={localStorage.getItem("displayName") + " Test"}
+        value={presetdisplayname}
         onChange={(e) => setDisplayName(e.target.value)}
       />
       <button type="submit">Enter</button>
@@ -83,6 +88,7 @@ function RootApp() {
 function App({ user }: { user: { email: string; roomname: string; displayName: string } }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
+  document.getElementById("roomname").innerHTML = ""
   localStorage.setItem("displayName", user.displayName);
   const socket = usePartySocket({
     party: "chat",
