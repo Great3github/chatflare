@@ -22,6 +22,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [roomname, setroomname] = useState("");
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
+  const params = window.location.pathname;
   
   
 
