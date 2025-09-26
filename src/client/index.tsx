@@ -6,10 +6,10 @@ import {
   Routes,
   Route,
   Navigate,
-  useParams,
   useNavigate
 } from "react-router";
 import { nanoid } from "nanoid";
+import { useParams } from "react-router-dom";
 import { names, type ChatMessage, type Message } from "../shared";
 interface LoginProps {
   onLogin: (user: { email: string; roomname: string; displayName: string }) => void;
@@ -70,8 +70,8 @@ function RootApp() {
       />
       <Route
         path="/:room"
-        element={user ? <App user={user} />}
-
+        element={user ? (<App user={user} />) : (<Navigate to="/" />)}
+        
       />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
@@ -82,7 +82,7 @@ function RootApp() {
 function App({ user }: { user: { email: string; roomname: string; displayName: string } }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
-  document.getElementById("roomname").innerHTML = `You are in chatroom '${user.roomname}'`
+  document.getElementById("roomname").innerHTML = `You are in chatroom '${room}'`
   //localStorage.setItem("displayName", user.displayName);
   const socket = usePartySocket({
     party: "chat",
