@@ -61,7 +61,7 @@ function RootApp() {
     roomname: string;
     displayName: string;
   } | null>(null);
-
+  
   return (
     <Routes>
       <Route
@@ -82,7 +82,7 @@ function RootApp() {
 function App({ user }: { user: { email: string; roomname: string; displayName: string } }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { room } = useParams();
-  document.getElementById("roomname").innerHTML = `You are in chatroom '${room}'`
+  document.getElementById("roomname").innerHTML = `You are in chatroom '${user.roomname}'`
   //localStorage.setItem("displayName", user.displayName);
   const socket = usePartySocket({
     party: "chat",
